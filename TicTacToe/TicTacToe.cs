@@ -15,6 +15,7 @@ namespace TicTacToe
         public TicTacToe()
         {
             InitializeComponent();
+
             buttonList.Add(Button1);
             buttonList.Add(Button2);
             buttonList.Add(Button3);
@@ -33,9 +34,9 @@ namespace TicTacToe
             {8, 9, 10}
         };
 
-        int MoveNumber = 0;
-        int XScore = 0;
-        int OScore = 0;
+        int MoveNumber = 0; //stores how many number of moves are made
+        int XScore = 0; //score for X
+        int OScore = 0; //score for O
         string text = "O";
         public List<Button> buttonList = new List<Button>();
 
@@ -187,16 +188,17 @@ namespace TicTacToe
             //Rows
             for(int i = 0; i < 3; i++)
             {
+                //checks for rows
                 if (Board[i, 0] == Board[i, 1] && Board[i, 1]== Board[i, 2])
                 {
                     if(Board[i, 0] == 1)
                     {
                         MessageBox.Show("X won");
-                        XScore++;
+                        XScore++; //updates Score for X
                         labelX.Text = $"X = {XScore}";
                     } else { 
                         MessageBox.Show("O won");
-                        OScore++;
+                        OScore++;   //updates Score for O
                         labelO.Text = $"O = {OScore}";
                     }
 
@@ -209,18 +211,19 @@ namespace TicTacToe
                     }
                 }
             }
-            //Column
+            //Columns
             for (int j = 0; j < 3; j++)
             {
+                //checks for columns
                 if (Board[0, j] == Board[1, j] && Board[1, j] == Board[2, j])
                 {
                     if (Board[0, j] == 1)
                     {
                         MessageBox.Show("X won");
-                        XScore++;
+                        XScore++;   //updates Score for X
                         labelX.Text = $"X = {XScore}";
                     } else { MessageBox.Show("O won");
-                        OScore++;
+                        OScore++;   //updates Score for O
                         labelO.Text = $"O = {OScore}";
                     }
 
@@ -234,18 +237,19 @@ namespace TicTacToe
                     }
                 }
             }
-            //Diagonal
+            //Diagonals
             if((Board[0,0] == Board[1,1] && Board[1,1] == Board[2,2]) || (Board[0, 2] == Board[1, 1] && Board[1, 1] == Board[2, 0]))
             {
+                //checks for diagonal lines
                 if (Board[0, 0] == 1 && Board[1, 1] == 1 && Board[2, 2] == 1 || 
                     Board[0, 2] == 1 && Board[1, 1] == 1 && Board[2, 0] == 1)
                 {
                     MessageBox.Show("X won");
-                    XScore++;
+                    XScore++;   //updates Score for X
                     labelX.Text = $"X = {XScore}";
                 }
                 else { MessageBox.Show("O won");
-                    OScore++;
+                    OScore++;   //updates Score for O
                     labelO.Text = $"O = {OScore}";
                 }
 
@@ -262,12 +266,14 @@ namespace TicTacToe
 
         private void Reset()
         {
+            //resets 2d board array with trivial numbers
             Board = new int[3, 3]
             {
                 {2, 3, 4},
                 {5, 6, 7},
                 {8, 9, 10}
             };
+            //buttons' texts are reset
             foreach(var button in buttonList)
             {
                 button.Text = "";
@@ -277,6 +283,7 @@ namespace TicTacToe
 
         private void GameOver(int moveNumber)
         {
+            //number of moves are limited to 9, so in that case game is over
             if(moveNumber == 9)
             {
                 if (MessageBox.Show("Game is tied. Do you want to play again?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
